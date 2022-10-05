@@ -26,7 +26,7 @@ public class App {
     public static void main(String[] args ) {
         OpenCV.loadShared();
 
-        Mat image = load(RAW_IMAGE_PATH);
+        Mat image = load();
         MatOfRect facesDetected = new MatOfRect();
         CascadeClassifier classifier = new CascadeClassifier();
         int minFaceSize = Math.round(image.rows() * 0.1f);
@@ -46,14 +46,14 @@ public class App {
         for (Rect face : facesArray) {
             Imgproc.rectangle(image, face.tl(), face.br(), new Scalar(0, 0, 255), 1);
         }
-        save(image, PROCESSED_IMAGE_PATH);
+        save(image);
     }
 
-    private static void save(Mat image, String path) {
-        Imgcodecs.imwrite(path, image);
+    private static void save(Mat image) {
+        Imgcodecs.imwrite(PROCESSED_IMAGE_PATH, image);
     }
 
-    private static Mat load(String path) {
-        return Imgcodecs.imread(path);
+    private static Mat load() {
+        return Imgcodecs.imread(RAW_IMAGE_PATH);
     }
 }
